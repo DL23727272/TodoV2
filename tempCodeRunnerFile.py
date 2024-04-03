@@ -118,10 +118,7 @@ class MainApp(MDApp):
         created_task = db.create_task(task.text, task_date)
         self.root.ids['container'].add_widget(ListItemWithCheckbox(pk=created_task[0], text='[b]'+created_task[1]+'[/b]', secondary_text=created_task[2]))
         task.text = ''
-        
-    def logout_button(self):
-            subprocess.Popen(["python", "login.py"])
-            os._exit(0)
+
 
 if __name__ == '__main__':
     app = MainApp()
