@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2024 at 06:32 AM
+-- Generation Time: Apr 03, 2024 at 02:53 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -39,11 +39,12 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`id`, `task`, `due_date`, `completed`) VALUES
-(1, 'Sir Ley: group activity', 'Friday 08 March 2024', 0),
-(2, 'Sir Genita: Group LabAct_5 Shop JQuery', 'Friday 08 March 2024', 0),
-(3, 'Sir Ventura: python application', 'Friday 08 March 2024', 0),
+(3, 'Sir Ventura: python application', 'Friday 08 March 2024', 1),
 (4, 'Ma\'am tere: PowerPoint presentation', 'Friday 08 March 2024', 0),
-(6, 'Ma\'am Gina : Logo, Flyers, Organizational Chart', 'Wednesday 13 March 2024', 0);
+(32, 'Ma\'am Tere: Assignment(Group Activity)', 'Monday 01 April 2024', 0),
+(33, 'Sir Ley: GE ELECT 103- MIDTERM REQUIREMENT', 'Monday 01 April 2024', 0),
+(35, 'Sir Ventura: list, icon, data table, toolbar, nav', 'Friday 05 April 2024', 0),
+(37, 'Ma\'am Gina: Quiz', 'Monday 08 April 2024', 0);
 
 --
 -- Indexes for dumped tables
@@ -63,7 +64,7 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
