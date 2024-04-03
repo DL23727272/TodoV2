@@ -122,6 +122,12 @@ class MainApp(MDApp):
     def logout_button(self):
             subprocess.Popen(["python", "login.py"])
             os._exit(0)
+            
+    def table_button(self):
+            subprocess.Popen(["python", "datatable.py"])
+            os._exit(0)
+            
+            
 
 if __name__ == '__main__':
     app = MainApp()

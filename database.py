@@ -72,3 +72,10 @@ class Database:
 
     def close_db_connection(self):
         self.con.close()
+        
+    def get_task(self):
+            # kunin  lahat ng tasks from the tasks table
+            get_tasks_query = "SELECT * FROM tasks"
+            self.cursor.execute(get_tasks_query)
+            tasks = self.cursor.fetchall()
+            return tasks
