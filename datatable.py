@@ -14,8 +14,8 @@ class DataTableApp(MDApp):
 
         layout = AnchorLayout()
         data_table = MDDataTable(
-            size_hint=(0.9, 0.6),  # Adjust the size_hint here (width, height)
-            pos_hint={"center_x": 0.5, "center_y": 0.5},  # Center the table
+            size_hint=(0.9, 0.6), 
+            pos_hint={"center_x": 0.5, "center_y": 0.5},  
             check=True,
             rows_num=10,
             column_data=[
