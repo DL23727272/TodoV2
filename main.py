@@ -120,7 +120,7 @@ class Ubraek(MDApp):
         task.text = ''
         
     def logout_button(self):
-            subprocess.Popen(["python", "login.py"])
+            subprocess.Popen(["python", "log.py"])
             os._exit(0)
             
     def table_button(self):
