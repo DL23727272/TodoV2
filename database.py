@@ -28,10 +28,8 @@ class Database:
         self.cursor.execute(insert_task_query, (task, due_date, 0))
         self.con.commit()
 
-        # Retrieve the last inserted ID
         last_inserted_id = self.cursor.lastrowid
 
-        # Retrieve the created task using the last inserted ID
         created_task_query = "SELECT id, task, due_date FROM tasks WHERE id = %s"
         self.cursor.execute(created_task_query, (last_inserted_id,))
         created_task = self.cursor.fetchall()
@@ -70,12 +68,30 @@ class Database:
         self.cursor.execute(delete_query, (taskid,))
         self.con.commit()
 
+    def signup(self, username, password):
+        try:
+            insert_user_query = "INSERT INTO users(username, password) VALUES(%s, %s)"
+            self.cursor.execute(insert_user_query, (username, password))
+            self.con.commit()
+            return True
+        except mysql.connector.IntegrityError:
+            return False
+        
+    def check_user(self, username, password):
+        check_user_query = "SELECT * FROM users WHERE username = %s AND password = %s"
+        self.cursor.execute(check_user_query, (username, password))
+        user = self.cursor.fetchone()
+        if user:
+            return True
+        else:
+            return False
+
     def close_db_connection(self):
         self.con.close()
-        
+
     def get_task(self):
-            # kunin  lahat ng tasks from the tasks table
-            get_tasks_query = "SELECT * FROM tasks"
-            self.cursor.execute(get_tasks_query)
-            tasks = self.cursor.fetchall()
-            return tasks
+        # kunin  lahat ng tasks from the tasks table
+        get_tasks_query = "SELECT * FROM tasks"
+        self.cursor.execute(get_tasks_query)
+        tasks = self.cursor.fetchall()
+        return tasks

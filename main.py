@@ -68,7 +68,7 @@ class LeftCheckbox(ILeftBodyTouch, MDCheckbox):
     '''Custom left container'''
 
 
-class MainApp(MDApp):
+class Ubraek(MDApp):
     task_list_dialog = None
 
     def build(self):
@@ -130,5 +130,5 @@ class MainApp(MDApp):
             
 
 if __name__ == '__main__':
-    app = MainApp()
+    app = Ubraek()
     app.run()

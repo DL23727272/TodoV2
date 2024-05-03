@@ -1,1 +1,3 @@
-from kivymd.app import MDApp
+from database import Database
+
+db = Database(host='localhost', user='root', password='', database='todo')
