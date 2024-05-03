@@ -21,6 +21,10 @@ class Login(MDApp):
         username = self.root.ids.Username.text
         password = self.root.ids.Password.text
         
+        if not username or not password:
+            self.root.ids.error_label.text = "Empty username or password"
+            return
+        
         if self.db.check_user(username, password):
             subprocess.Popen(["python", "main.py"])
             os._exit(0)
@@ -30,7 +34,9 @@ class Login(MDApp):
     def validate_signup(self):
         username = self.root.ids.Username.text
         password = self.root.ids.Password.text
-        
+        if not username or not password:
+            self.root.ids.error_label.text = "Empty username or password"
+            return
         signup_successful = self.db.signup(username, password)
         if signup_successful:
             self.root.ids.error_label.text = "Signup successful"

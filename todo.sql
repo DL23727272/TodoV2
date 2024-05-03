@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2024 at 02:53 PM
+-- Generation Time: May 03, 2024 at 06:27 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -39,12 +39,35 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`id`, `task`, `due_date`, `completed`) VALUES
-(3, 'Sir Ventura: python application', 'Friday 08 March 2024', 1),
-(4, 'Ma\'am tere: PowerPoint presentation', 'Friday 08 March 2024', 0),
-(32, 'Ma\'am Tere: Assignment(Group Activity)', 'Monday 01 April 2024', 0),
-(33, 'Sir Ley: GE ELECT 103- MIDTERM REQUIREMENT', 'Monday 01 April 2024', 0),
-(35, 'Sir Ventura: list, icon, data table, toolbar, nav', 'Friday 05 April 2024', 0),
-(37, 'Ma\'am Gina: Quiz', 'Monday 08 April 2024', 0);
+(42, 'Sir Ley:  ILO, Task 1, Task 2, and Assignment', 'Monday 29 April 2024', 1),
+(43, 'Sir Pilotin: High Fidelity Mobile and Web Figma', 'Monday 29 April 2024', 1),
+(45, 'Sir Prado: Activities', 'Saturday 11 May 2024', 0),
+(46, 'Sir Genita: Array 3D and 4D (6 set, row, col)', 'Tuesday 30 April 2024', 1),
+(47, 'Ma\'am Lagmay: Module 1 finals Activity', 'Friday 03 May 2024', 0),
+(48, 'Sir Ventura: Project Details', 'Friday 14 June 2024', 0),
+(49, 'asdad', 'Saturday 04 May 2024', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`) VALUES
+(1, 'DL', '123'),
+(6, 'Shanne', '123'),
+(7, 'Jeriel', '123'),
+(10, 'test', '123');
 
 --
 -- Indexes for dumped tables
@@ -57,6 +80,13 @@ ALTER TABLE `tasks`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -64,7 +94,13 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
