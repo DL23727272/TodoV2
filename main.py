@@ -142,27 +142,22 @@ class Ubraek(MDApp):
             os._exit(0)
             
     def change_content(self, item_text):
-        # Clear existing content
         self.root.ids.container.clear_widgets()
 
         if item_text == "About Developers":
-            # Add content for About Developers
             self.root.ids.container.add_widget(AboutDevelopersWidget())
         elif item_text == "System Description":
-            # Add content for System Description
             self.root.ids.container.add_widget(SystemDescriptionWidget())
         elif item_text == "System Help":
-            # Add content for System Help
             self.root.ids.container.add_widget(SystemHelpWidget())    
                
     def on_drawer_item_click(self, item_text):
         self.change_content(item_text)
         
     def go_to_home(self):
-        if __name__ == '__main__':
-            Window.size = (778, 640)
-            app = Ubraek()
-            app.run()
+        self.on_start()
+
+
 
 if __name__ == '__main__':
     Window.size = (778, 640)
