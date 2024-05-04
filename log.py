@@ -18,18 +18,18 @@ class Login(MDApp):
         return testApp() 
     
     def validate_login(self):
-        username = self.root.ids.Username.text
-        password = self.root.ids.Password.text
+        username = self.root.ids.UsernameLogin.text
+        password = self.root.ids.PasswordLogin.text
         
         if not username or not password:
-            self.root.ids.error_label.text = "Empty username or password"
+            self.root.ids.login_error_label.text = "Empty username or password"
             return
         
         if self.db.check_user(username, password):
             subprocess.Popen(["python", "main.py"])
             os._exit(0)
         else:
-            self.root.ids.error_label.text = "Invalid credentials"
+            self.root.ids.login_error_label.text = "Invalid credentials"
 
     def validate_signup(self):
         username = self.root.ids.Username.text
@@ -45,6 +45,6 @@ class Login(MDApp):
         
 
 if __name__ == "__main__":
-    Window.size = (360, 640)
+    Window.size = (778, 640)
     Builder.load_file("log.kv")
     Login().run()

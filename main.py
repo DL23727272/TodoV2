@@ -8,7 +8,7 @@ from kivymd.uix.pickers import MDDatePicker
 from kivymd.uix.list import TwoLineAvatarIconListItem, ILeftBodyTouch
 from kivymd.uix.selectioncontrol import MDCheckbox
 from kivymd.uix.navigationdrawer import MDNavigationDrawerItem
-
+from kivy.core.window import Window
 import subprocess
 import os
 
@@ -130,5 +130,6 @@ class Ubraek(MDApp):
             
 
 if __name__ == '__main__':
+    Window.size = (778, 640)
     app = Ubraek()
     app.run()
