@@ -1,5 +1,4 @@
 MDFloatLayout:
-   
     ScrollView:
         pos_hint: {'center_y': .5, 'center_x': .5}
         size_hint: .9, .8
@@ -7,16 +6,12 @@ MDFloatLayout:
         MDList:
             id: container
 
-
-    # Button for adding task 
     MDFloatingActionButton:
         icon: 'plus-thick'
         on_release: app.show_task_dialog()
         elevation_normal: 12
         pos_hint: {'x': .45 , 'y': .04}
 
-
-    # Button for logout
     MDFloatingActionButton:
         icon: 'logout'
         on_release: app.logout_button()
@@ -25,11 +20,8 @@ MDFloatLayout:
         text_color: 0, 0, 0, 1  
 
     MDNavigationLayout:
-
         MDScreenManager:
-
             MDScreen:
-
                 MDTopAppBar:
                     title: "Ubraek Tatta"
                     elevation: 4
@@ -41,37 +33,37 @@ MDFloatLayout:
         MDNavigationDrawer:
             id: nav_drawer
             radius: (0, 16, 16, 0)
-
             MDNavigationDrawerMenu:
-
                 MDNavigationDrawerHeader:
-                    title: "TODO APP"
+                    title: "Ubraek APP"
                     title_color: "#4a4939"
-                    text: "DL"
+                    text: ""
                     spacing: "4dp"
+                    source: "img/Ubraen.png"
                     padding: "12dp", 0, 0, "56dp"
-
-                    MDIconButton:
-                        icon: "img/Ubraen.png" 
-                        user_font_size: "70sp" 
-                        pos_hint: {"center_y": 0.5}  
-
-                MDNavigationDrawerLabel:
-                    text: "Mail"
+                DrawerClickableItem:
+                    icon: "home"
+                    text: "Home"
+                    on_release: app.go_to_home()
 
                 DrawerClickableItem:
-                    icon: "github"
+                    icon: "information"
                     text_right_color: "#4a4939"
-                    text: "Github ko"
+                    text: "About Developers"
+                    on_release: app.on_drawer_item_click(self.text)
 
                 DrawerClickableItem:
-                    icon: "facebook"
-                    text: "facebook acc"
-
+                    icon: "application"
+                    text: "System Description"
+                    on_release: app.on_drawer_item_click(self.text)
+                    
                 DrawerClickableItem:
-                    icon: "table"
-                    text: "Data table"
-                    on_release: app.table_button()
+                    icon: "help"
+                    text: "System Help"
+                    on_release: app.on_drawer_item_click(self.text)
+
+
+              
 
 <DialogContent>:
     orientation: "vertical"
@@ -123,3 +115,17 @@ MDFloatLayout:
         on_release: root.delete_item(the_list_item)
 
 
+<AboutDevelopersWidget>:
+    orientation: 'vertical'
+    Label:
+        text: "About Developers Content test"
+
+<SystemDescriptionWidget>:
+    orientation: 'vertical'
+    Label:
+        text: "System Description Content"
+
+<SystemHelpWidget>:
+    orientation: 'vertical'
+    Label:
+        text: "System Help Content"

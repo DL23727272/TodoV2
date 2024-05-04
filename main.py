@@ -1,6 +1,6 @@
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
-
+from kivy.uix.label import Label
 from kivymd.app import MDApp
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.boxlayout import MDBoxLayout
@@ -18,6 +18,24 @@ from database import Database
 
 db = Database(host='localhost', user='root', password='', database='todo')
 
+class AboutDevelopersWidget(BoxLayout):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.orientation = 'vertical'
+        Builder.load_file("todo.kv") 
+
+class SystemDescriptionWidget(BoxLayout):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.orientation = 'vertical'
+        Builder.load_file("todo.kv") 
+
+
+class SystemHelpWidget(BoxLayout):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.orientation = 'vertical'
+        Builder.load_file("todo.kv") 
 
 
 class DrawerClickableItem(MDNavigationDrawerItem):
@@ -82,11 +100,11 @@ class Ubraek(MDApp):
 
     def show_task_dialog(self):
         if not self.task_list_dialog:
-            self.dialog_content = DialogContent()  # Create an instance of DialogContent
+            self.dialog_content = DialogContent()  
             self.task_list_dialog = MDDialog(
                 title="Create Task",
                 type="custom",
-                content_cls=self.dialog_content  # Set the content_cls here
+                content_cls=self.dialog_content  
             )
         self.task_list_dialog.open()
 
@@ -123,11 +141,28 @@ class Ubraek(MDApp):
             subprocess.Popen(["python", "log.py"])
             os._exit(0)
             
-    def table_button(self):
-            subprocess.Popen(["python", "datatable.py"])
-            os._exit(0)
-            
-            
+    def change_content(self, item_text):
+        # Clear existing content
+        self.root.ids.container.clear_widgets()
+
+        if item_text == "About Developers":
+            # Add content for About Developers
+            self.root.ids.container.add_widget(AboutDevelopersWidget())
+        elif item_text == "System Description":
+            # Add content for System Description
+            self.root.ids.container.add_widget(SystemDescriptionWidget())
+        elif item_text == "System Help":
+            # Add content for System Help
+            self.root.ids.container.add_widget(SystemHelpWidget())    
+               
+    def on_drawer_item_click(self, item_text):
+        self.change_content(item_text)
+        
+    def go_to_home(self):
+        if __name__ == '__main__':
+            Window.size = (778, 640)
+            app = Ubraek()
+            app.run()
 
 if __name__ == '__main__':
     Window.size = (778, 640)
