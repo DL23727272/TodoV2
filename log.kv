@@ -3,7 +3,7 @@
 
         MDBottomNavigation:
             #panel_color: "#eeeaea"
-            selected_color_background: "orange"
+            selected_color_background: "blue"
             text_color_active: "lightgrey"
 
             MDBottomNavigationItem:
@@ -98,8 +98,9 @@
                     spacing: '15dp'
 
 
-                    MDFlatButton:
+                    MDRectangleFlatIconButton:
                         text: "Log In"
+                        icon: "account-check"
                         font_size: "22dp"
                         size_hint_x: 1
                         md_bg_color: "FF5623"
@@ -108,7 +109,7 @@
             MDBottomNavigationItem:
                 name: 'screen 2'
                 text: 'Signup'
-                icon: 'account'
+                icon: 'account-plus'
 
                 Image:
                     source: "img/sunset.jpg "
@@ -191,8 +192,9 @@
                     pos_hint: {'center_x': .5, 'center_y': .3}
                     spacing: '15dp'
 
-                    MDFlatButton:
+                    MDRectangleFlatIconButton:
                         text: "Sign Up"
+                        icon: "account-plus"
                         font_size: "22dp"
                         size_hint_x: 1
                         md_bg_color: "FF5623"
