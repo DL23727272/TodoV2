@@ -1,4 +1,7 @@
 from kivy.lang import Builder
+from kivy.properties import ObjectProperty
+
+from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivymd.app import MDApp
@@ -11,38 +14,20 @@ from kivymd.uix.navigationdrawer import MDNavigationDrawerItem
 from kivy.core.window import Window
 import subprocess
 import os
-
+from kivymd.uix.list import OneLineListItem
 from datetime import datetime
 
 from database import Database
 
 db = Database(host='localhost', user='root', password='', database='todo')
 
-class AboutDevelopersWidget(BoxLayout):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.orientation = 'vertical'
-        Builder.load_file("todo.kv") 
+from kivymd.app import MDApp
+from kivymd.uix.scrollview import MDScrollView
 
-class SystemDescriptionWidget(BoxLayout):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.orientation = 'vertical'
-        Builder.load_file("todo.kv") 
-
-
-class SystemHelpWidget(BoxLayout):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.orientation = 'vertical'
-        Builder.load_file("todo.kv") 
-
-
-class DrawerClickableItem(MDNavigationDrawerItem):
-    pass
-
-class DrawerLabelItem(MDNavigationDrawerItem):
-    pass
+class ContentNavigationDrawer(MDScrollView):
+    screen_manager = ObjectProperty()
+    nav_drawer = ObjectProperty()
+    
 
 class DialogContent(MDBoxLayout):
     """OPENS A DIALOG BOX THAT GETS THE TASK FROM THE USER"""
@@ -86,18 +71,14 @@ class LeftCheckbox(ILeftBodyTouch, MDCheckbox):
     '''Custom left container'''
 
 
-class Ubraek(MDApp):
+class UbraekApp(MDApp):
     task_list_dialog = None
-
+    
     def build(self):
         self.theme_cls.primary_palette = "Blue"
         self.theme_cls.theme_style = "Dark"
+        return Builder.load_file("main.kv")
     
-        with open("todo.kv", encoding='utf-8') as file:
-            kv = file.read()
-        return Builder.load_string(kv)
-
-
     def show_task_dialog(self):
         if not self.task_list_dialog:
             self.dialog_content = DialogContent()  
@@ -140,28 +121,10 @@ class Ubraek(MDApp):
         task.text = ''
         
     def logout_button(self):
-            subprocess.Popen(["python", "log.py"])
+            subprocess.Popen(["python", "login.py"])
             os._exit(0)
-            
-    def change_content(self, item_text):
-        self.root.ids.container.clear_widgets()
-
-        if item_text == "About Developers":
-            self.root.ids.container.add_widget(AboutDevelopersWidget())
-        elif item_text == "System Description":
-            self.root.ids.container.add_widget(SystemDescriptionWidget())
-        elif item_text == "System Help":
-            self.root.ids.container.add_widget(SystemHelpWidget())    
-               
-    def on_drawer_item_click(self, item_text):
-        self.change_content(item_text)
-        
-    def go_to_home(self):
-        self.on_start()
-
-
 
 if __name__ == '__main__':
     Window.size = (778, 640)
-    app = Ubraek()
+    app = UbraekApp()
     app.run()

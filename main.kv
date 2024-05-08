@@ -1,0 +1,175 @@
+<ContentNavigationDrawer>
+
+    MDList:
+        MDNavigationDrawerHeader:
+            title: "Ubraek App"
+            text: "todo application"
+            source: "img/Ubraen.png"
+            spacing: "4dp"
+            padding: "12dp", 0, 0, "56dp"
+        OneLineListItem:
+            text: "Home"
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 1"
+           
+
+        OneLineListItem:
+            text: "About Developers"
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 2"
+
+        OneLineListItem:
+            text: "System Description"
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 3"
+
+        OneLineListItem:
+            text: "System Help"
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 4"
+
+
+MDScreen:
+
+    MDTopAppBar:
+        pos_hint: {"top": 1}
+        elevation: 4
+        title: "Ubraek"
+        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+        
+
+    MDNavigationLayout:
+
+        MDScreenManager:
+            id: screen_manager
+
+            MDScreen:
+                name: "scr 1"
+                  
+                ScrollView:
+                    pos_hint: {'center_y': .5, 'center_x': .5}
+                    size_hint: .9, .8
+
+                    MDList:
+                        id: container
+
+                MDFloatingActionButton:
+                    icon: 'plus-thick'
+                    on_release: app.show_task_dialog()
+                    elevation_normal: 12
+                    pos_hint: {'x': .5 , 'y': .04}
+
+                MDFloatingActionButton:
+                    icon: 'logout'
+                    on_release: app.logout_button()
+                    elevation_normal: 12
+                    pos_hint: {'x': .8, 'y': .04}
+                    text_color: 1,1,1,1 
+
+
+
+            MDScreen:
+                name: "scr 2"
+
+                MDLabel:
+                    text: "Screen 2"
+                    halign: "center"
+
+            MDScreen:
+                name: "scr 3"
+
+                MDLabel:
+                    text: "[b]System Description[/b]"
+                    halign: "center"
+                    pos_hint: {'center_x': .5 , 'center_y': .65}
+                    markup: True
+                MDLabel:
+                    text: """This is a simple ToDo application built using the Kivy framework. The app allows users to create, mark as complete or incomplete, and delete tasks. It utilizes the KivyMD library for Material Design components. """
+                    halign: "center"
+                    pos_hint: {'center_x': .5 , 'center_y': .6}
+                MDLabel:
+                    text: "[b]Dependencies KivyMD[/b]\n - Material Design components for Kivy datetime \n - Basic date and time types"
+                    halign: "center"
+                    pos_hint: {'center_x': .5 , 'center_y': .5}
+                    markup: True
+
+            MDScreen:
+                name: "scr 4"
+
+                MDLabel:
+                    text: "[b]System Help[/b]"
+                    halign: "center"
+                    pos_hint: {'center_x': .5 , 'center_y': .7}
+                    markup: True
+                MDLabel:
+                    text: """Run the MainApp class to start the ToDo application. The main screen displays a list of tasks. Completed tasks are marked with strikethrough text. Click the "Create Task" button to open a dialog for adding new tasks. In the task creation dialog, enter the task details and choose a due date using the date picker. Click the "Save" button to add the task to the list. Tasks can be marked as complete or incomplete by checking/unchecking the checkbox next to each task. To delete a task, click the delete button next to the task."""
+                    halign: "center"
+                    pos_hint: {'center_x': .5 , 'center_y': .6}
+                MDLabel:
+                    text: """[b]Features[/b]\n Create new tasks with due dates. Mark tasks as complete or incomplete. Delete tasks.\n[b]Database[/b] \n The app uses a simple database module (database.py) for storing task information."""
+                    halign: "center"
+                    pos_hint: {'center_x': .5 , 'center_y': .4}
+                    markup: True
+                    
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: (0, 16, 16, 0)
+
+            ContentNavigationDrawer:
+                screen_manager: screen_manager
+                nav_drawer: nav_drawer
+
+
+<DialogContent>:
+    orientation: "vertical"
+    spacing: "10dp"
+    size_hint: 1, None
+    height: "130dp"
+
+    GridLayout:
+        rows: 1
+
+        MDTextField:
+            id: task_text
+            hint_text: "Add Task..."
+            pos_hint: {"center_y": .4}
+            max_text_length: 50
+            on_text_validate: (app.add_task(task_text, date_text.text), app.close_dialog())
+
+        MDIconButton:
+            icon: 'calendar'
+            on_release: root.show_date_picker()
+            padding: '10dp'
+
+    MDLabel:
+        spacing: '10dp'
+        id: date_text
+
+    BoxLayout:
+        orientation: 'horizontal'
+
+        MDRaisedButton:
+            text: "SAVE"
+            on_release: (app.add_task(task_text, date_text.text), app.close_dialog())
+        MDFlatButton:
+            text: 'CANCEL'
+            on_release: app.close_dialog()
+
+<ListItemWithCheckbox>:
+    id: the_list_item
+    markup: True
+
+    LeftCheckbox:
+        id: check
+        on_release: root.mark(check, the_list_item)
+
+    IconRightWidget:
+        icon: 'trash-can-outline'
+        theme_text_color: "Custom"
+        text_color: 1, 0, 0, 1
+        on_release: root.delete_item(the_list_item)
