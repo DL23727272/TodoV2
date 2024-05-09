@@ -1,50 +1,61 @@
-from kivymd.app import MDApp
-from kivy.lang import Builder
+from kivy.uix.screenmanager import ScreenManager
 from kivy.core.window import Window
-from kivy.uix.screenmanager import Screen
+from kivy.lang import Builder
+from kivymd.app import MDApp
+from kivy.clock import Clock
 from database import Database
 import subprocess
 import os
 
-class testApp(Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+Window.size = (778, 640)
 
-class Login(MDApp):
+
+class LoginScreen(MDApp):
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Yellow"
         self.db = Database(host='localhost', user='root', password='', database='todo')
-        return testApp() 
+        global sm 
+        sm = ScreenManager()
+        sm.add_widget(Builder.load_file("splash.kv"))
+        sm.add_widget(Builder.load_file("login.kv"))
+        return sm
     
+    def on_start(self):
+        Clock.schedule_once(self.login, 5)
+        
+    def login(self, *args):  # Added self parameter
+        sm.current = "login" 
+        
     def validate_login(self):
-        username = self.root.ids.UsernameLogin.text
-        password = self.root.ids.PasswordLogin.text
+        # Accessing UsernameLogin relative to the screen with the name "login"
+        username = self.root.get_screen("login").ids.UsernameLogin.text
+        password = self.root.get_screen("login").ids.PasswordLogin.text
         
         if not username or not password:
-            self.root.ids.login_error_label.text = "Empty username or password"
+            self.root.get_screen("login").ids.login_error_label.text = "Empty username or password"
             return
         
         if self.db.check_user(username, password):
             subprocess.Popen(["python", "main.py"])
             os._exit(0)
         else:
-            self.root.ids.login_error_label.text = "Invalid credentials"
+            self.root.get_screen("login").ids.login_error_label.text = "Invalid credentials"
 
     def validate_signup(self):
-        username = self.root.ids.Username.text
-        password = self.root.ids.Password.text
+        # Accessing Username relative to the screen with the name "signup"
+        username = self.root.get_screen("login").ids.Username.text
+        password = self.root.get_screen("login").ids.Password.text
+        
         if not username or not password:
-            self.root.ids.error_label.text = "Empty username or password"
+            self.root.get_screen("login").ids.error_label.text = "Empty username or password"
             return
+        
         signup_successful = self.db.signup(username, password)
         if signup_successful:
-            self.root.ids.error_label.text = "Signup successful"
+            self.root.get_screen("login").ids.error_label.text = "Signup successful"
         else:
-            self.root.ids.error_label.text = "Username already exists"
-        
-
-if __name__ == "__main__":
-    Window.size = (778, 640)
-    Builder.load_file("log.kv")
-    Login().run()
+            self.root.get_screen("login").ids.error_label.text = "Username already exists"
+   
+if __name__=="__main__":
+    LoginScreen().run()
