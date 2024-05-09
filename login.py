@@ -24,11 +24,11 @@ class LoginScreen(MDApp):
     def on_start(self):
         Clock.schedule_once(self.login, 5)
         
-    def login(self, *args):  # Added self parameter
+    def login(self, *args):  
         sm.current = "login" 
         
     def validate_login(self):
-        # Accessing UsernameLogin relative to the screen with the name "login"
+       
         username = self.root.get_screen("login").ids.UsernameLogin.text
         password = self.root.get_screen("login").ids.PasswordLogin.text
         
@@ -43,7 +43,7 @@ class LoginScreen(MDApp):
             self.root.get_screen("login").ids.login_error_label.text = "Invalid credentials"
 
     def validate_signup(self):
-        # Accessing Username relative to the screen with the name "signup"
+       
         username = self.root.get_screen("login").ids.Username.text
         password = self.root.get_screen("login").ids.Password.text
         
