@@ -10,7 +10,7 @@ import os
 Window.size = (778, 640)
 
 
-class LoginScreen(MDApp):
+class LoginPage(MDApp):
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Yellow"
@@ -58,4 +58,4 @@ class LoginScreen(MDApp):
             self.root.get_screen("login").ids.error_label.text = "Username already exists"
    
 if __name__=="__main__":
-    LoginScreen().run()
+    LoginPage().run()
